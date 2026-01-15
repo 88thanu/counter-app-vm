@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #25da55;
+}
+
+.container {
+  background: rgb(223, 139, 61);
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#counter-value {
+  font-size: 3rem;
+  margin: 1rem 0;
+}
+
+.buttons button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+}
