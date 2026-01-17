@@ -1,0 +1,27 @@
+name: Deploy to PROD (Windows IIS)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.PROD_VM_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.PROD_VM_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to Windows PROD VM
+        run: |
+          ssh ${{ secrets.PROD_VM_USER }}@${{ secrets.PROD_VM_HOST }} "powershell -Command \"Remove-Item -Recurse -Force C:\\inetpub\\wwwroot\\*\""
+
+          scp -r ./* ${{ secrets.PROD_VM_USER }}@${{ secrets.PROD_VM_HOST }}:${{ secrets.PROD_DEPLOY_PATH }}
