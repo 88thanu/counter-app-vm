@@ -10,6 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug environment
+        shell: bash
+        run: |
+          echo "USER=$(whoami)"
+          echo "HOME=$HOME"
+          pwd
+          ls -la /
+          ls -la $HOME || echo "HOME not accessible"
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
